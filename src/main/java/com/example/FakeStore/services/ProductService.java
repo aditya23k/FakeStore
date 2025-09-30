@@ -6,4 +6,6 @@ import com.example.FakeStore.models.Product;
 
 public interface ProductService {
     GenericProductDTO getProductById(Long id);
+
+    GenericProductDTO createProduct(GenericProductDTO productDTO);
 }
