@@ -30,8 +30,9 @@ public class ProductController {
 
     }
     @PostMapping()
-    public String createProduct(){
-        return "created a new Product with the code: "+ UUID.randomUUID();
+    public GenericProductDTO createProduct(@RequestBody GenericProductDTO product){
+//        System.out.print();
+        return productService.createProduct(product);
     }
     @PutMapping("{id}")
     public void updateProductById(@PathVariable("id") Long id){
