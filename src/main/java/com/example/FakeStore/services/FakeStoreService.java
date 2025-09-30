@@ -1,6 +1,8 @@
 package com.example.FakeStore.services;
 
+import com.example.FakeStore.dtos.GenericProductDTO;
 import com.example.FakeStore.dtos.fakeStoreDTO;
+import com.example.FakeStore.models.Product;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,14 +18,24 @@ public class FakeStoreService implements ProductService {
         this.restTemplateBuilder= restTemplateBuilder;
     }
     @Override
-    public String getProductById(Long id){
+    public GenericProductDTO getProductById(Long id){
 //        return new Product();
 //        return null;
         RestTemplate restTemplate = restTemplateBuilder.build();
-        ResponseEntity<fakeStoreDTO> response=  restTemplate.getForEntity(productRequestUrl,fakeStoreDTO.class, id);
-
+        ResponseEntity<fakeStoreDTO> response=  restTemplate.getForEntity(productRequestUrl, fakeStoreDTO.class, id);
+        fakeStoreDTO productDTO= response.getBody();
+//        return productDTO.getTitle();
 //        response.getStatusCode();
-        return "Here is the product: " +id;
+        GenericProductDTO product = new GenericProductDTO();
+
+        product.setImage(productDTO.getImage());
+        product.setTitle(productDTO.getTitle());
+        product.setPrice(productDTO.getPrice());
+        product.setDescription(productDTO.getDescription());
+        product.setPrice(productDTO.getPrice());
+        product.setCategory(product.getCategory());
+
+        return product;
     }
 
 }

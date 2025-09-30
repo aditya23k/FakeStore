@@ -1,19 +1,29 @@
 package com.example.FakeStore.controller;
 
+import com.example.FakeStore.dtos.GenericProductDTO;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
+import com.example.FakeStore.services.ProductService;
 
 import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/products/")
 public class ProductController {
+
+    private ProductService productService;
+
+    public ProductController(@Qualifier("fakeStoreService") ProductService productService){
+        this.productService = productService;
+    }
+
     @GetMapping("")
     public void getAllProducts(){
 
     }
     @GetMapping("{id}")
-    public String getProductById(@PathVariable("id") Long id){
-        return "Here is the product:" +id;
+    public GenericProductDTO getProductById(@PathVariable("id") Long id){
+        return productService.getProductById(id);
     }
     @DeleteMapping("{id}")
     public void deleteProductById(@PathVariable("id") Long id){
