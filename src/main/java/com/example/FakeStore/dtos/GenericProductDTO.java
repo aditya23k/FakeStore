@@ -6,15 +6,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class GenericProductDTO {
-    public Long id;
+    public int Id;
     public String title;
     public double price;
     public String category;
     public String description;
     public String image;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public int getId() { return Id; }
+    public void setId(int id) { this.Id = id; }
 
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
