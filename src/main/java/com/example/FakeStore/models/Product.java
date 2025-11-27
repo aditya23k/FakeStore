@@ -1,5 +1,8 @@
 package com.example.FakeStore.models ;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,11 +10,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
+@Entity
 public class Product extends BaseModel{
     public Long id;
     public String title;
     public String description;
     public String image;
+    @ManyToOne
     public Category category;
     public double price;
 
