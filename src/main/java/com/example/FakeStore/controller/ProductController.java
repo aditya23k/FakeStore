@@ -1,11 +1,14 @@
 package com.example.FakeStore.controller;
 
+import com.example.FakeStore.dtos.ExceptionDTO;
 import com.example.FakeStore.dtos.GenericProductDTO;
+import com.example.FakeStore.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.FakeStore.services.ProductService;
-
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("api/v1/products/")
@@ -18,16 +21,20 @@ public class ProductController {
     }
 
     @GetMapping("")
-    public void getAllProducts(){
+    public List<GenericProductDTO> getAllProducts(){
+        return productService.getAllProducts();
 
     }
     @GetMapping("{id}")
-    public GenericProductDTO getProductById(@PathVariable("id") Long id){
+    public GenericProductDTO getProductById(@PathVariable("id") Long id) throws NotFoundException{
         return productService.getProductById(id);
     }
     @DeleteMapping("{id}")
-    public void deleteProductById(@PathVariable("id") Long id){
-
+    public ResponseEntity<GenericProductDTO> deleteProductById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(
+                productService.deleteProductById(id),
+                HttpStatus.OK
+        );
     }
     @PostMapping()
     public GenericProductDTO createProduct(@RequestBody GenericProductDTO product){
@@ -39,5 +46,6 @@ public class ProductController {
     public void updateProductById(@PathVariable("id") Long id){
 
     }
+
 }
 
