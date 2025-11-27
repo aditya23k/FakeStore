@@ -71,7 +71,6 @@ public class FakeStoreService implements ProductService {
         for( fakeStoreDTO productDTO: Arrays.stream(response.getBody()).toList()){
 //        return productDTO.getTitle();
 //        response.getStatusCode();
-
             productList.add(convert_fakeStoreDTO_to_GenericProductDTO(productDTO));
         }
         return productList;
