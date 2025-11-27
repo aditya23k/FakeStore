@@ -13,4 +13,15 @@ public class ControllerAdvices {
     private ResponseEntity<ExceptionDTO> handleNotFoundException(NotFoundException notFoundException){
         return new ResponseEntity(new ExceptionDTO(HttpStatus.NOT_FOUND, notFoundException.getMessage()),HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(ArrayIndexOutOfBoundsException.class)
+    private ResponseEntity<ExceptionDTO> handleArrayIndexOutOfBound(
+            ArrayIndexOutOfBoundsException notFoundException
+    ) {
+
+        return new ResponseEntity(
+                new ExceptionDTO(HttpStatus.NOT_FOUND, notFoundException.getMessage()),
+                HttpStatus.NOT_FOUND
+        );
+    }
 }
