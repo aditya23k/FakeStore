@@ -1,79 +1,24 @@
 package com.example.FakeStore.models ;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder
 @Entity
 public class Product extends BaseModel{
-    public Long id;
     public String title;
     public String description;
     public String image;
-    @ManyToOne
-    public Category category;
-    public double price;
 
 
-    public Product(String title, String description, String image, Category category, double price) {
-        this.title = title;
-        this.description = description;
-        this.image = image;
-        this.category = category;
-        this.price = price;
-    }
+    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "category")
+    private Category category;
 
-    public Product() {
-    }
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Price price;
 
-    public static ProductBuilder builder() {
-        return new ProductBuilder();
-    }
-
-    public String getTitle() {
-        return this.title;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public String getImage() {
-        return this.image;
-    }
-
-    public Category getCategory() {
-        return this.category;
-    }
-
-    public double getPrice() {
-        return this.price;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
 
 }
