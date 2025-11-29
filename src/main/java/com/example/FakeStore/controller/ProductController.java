@@ -27,7 +27,11 @@ public class ProductController {
     }
     @GetMapping("{id}")
     public GenericProductDTO getProductById(@PathVariable("id") Long id) throws NotFoundException{
-        return productService.getProductById(id);
+        GenericProductDTO productDTO = productService.getProductById(id);
+        if (productDTO == null) {
+            // throw NotFoundException
+        }
+        return productDTO;
     }
     @DeleteMapping("{id}")
     public ResponseEntity<GenericProductDTO> deleteProductById(@PathVariable("id") Long id) {
