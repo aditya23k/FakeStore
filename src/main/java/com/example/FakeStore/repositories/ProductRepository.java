@@ -1,6 +1,7 @@
 package com.example.FakeStore.repositories;
 
 import com.example.FakeStore.customqueries;
+import com.example.FakeStore.models.Category;
 import com.example.FakeStore.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -29,5 +30,7 @@ public interface ProductRepository extends JpaRepository<Product, UUID>{
 
     @Query(value = customqueries.FIND_ALL_BY_TITLE, nativeQuery = true)
     List<Product> findAllByTitle(String product);
+
+    List<Product> findAllByCategoryIn(List<Category> categories);
 
 }
