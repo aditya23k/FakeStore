@@ -2,7 +2,7 @@ package com.example.FakeStore.thirdpartyclients.ProductService.FakeStore;
 
 import com.example.FakeStore.dtos.GenericProductDTO;
 import com.example.FakeStore.exceptions.NotFoundException;
-import lombok.Value;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
