@@ -1,18 +1,70 @@
 package com.example.FakeStore.controller;
 
+import com.example.FakeStore.dtos.GenericProductDTO;
 import com.example.FakeStore.exceptions.NotFoundException;
+import com.example.FakeStore.services.FakeStoreProductService;
+import com.example.FakeStore.services.ProductService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.FakeStore.thirdpartyclients.ProductService.FakeStore.FakeStoreProductServiceClient;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 public class ProductControllerTest {
     @Autowired
     private FakeStoreProductServiceClient fakeStoreProductServiceClient;
+
+    @Autowired
+    private ProductController productController;
+
+    @MockBean
+    private ProductService productService;
+
+    @Autowired
+    private FakeStoreProductService fakeStoreProductService;
+
+//    @Test
+//    void returnsNullWhenProductDoesntExist() throws NotFoundException {
+//        when(
+//                productService.getProductById(any(Long.class))
+//        ).thenReturn(null);
+//
+//
+//        GenericProductDto genericProductDto = productController.getProductById(121L);
+////        given
+//
+//
+//        assertNull(genericProductDto);
+//    }
+
+    @Test
+    void throwsExceptionWhenProductDoesntExist() throws NotFoundException {
+        when(
+                productService.getProductById(any(Long.class))
+        )
+                .thenReturn(null);
+
+        assertThrows(NotFoundException.class, () -> productController.getProductById(123L));
+    }
+
+    @Test
+    void returnsSameProductAsServiceWhenProductExists() throws NotFoundException {
+        GenericProductDTO genericProductDto = new GenericProductDTO();
+        when(
+                productService.getProductById(any(Long.class))
+        )
+                .thenReturn(genericProductDto);
+
+        assertEquals(genericProductDto.getPrice(), productController.getProductById(123L).getPrice());
+
+//        assertThrows(NotFoundException.class, () -> productController.getProductById(123L));
+    }
 
 
     @Test

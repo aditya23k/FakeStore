@@ -56,6 +56,7 @@ public class FakeStoreProductService implements ProductService {
 //            throw new NotFoundException("product with id: "+id +"doesn't exist");
 //        }
 //        return convert_fakeStoreDTO_to_GenericProductDTO(productDTO);
+        System.out.println("In product service");
         return convert_fakeStoreDTO_to_GenericProductDTO(fakeStoreProductServiceClient.getProductById(id));
     }
 

@@ -21,9 +21,28 @@ public class ProductController {
     }
 
     @GetMapping("")
-    public List<GenericProductDTO> getAllProducts(){
-        return productService.getAllProducts();
+    public ResponseEntity<List<GenericProductDTO>> getAllProducts() {
+        List<GenericProductDTO> productDTOs = productService.getAllProducts();
+        if (productDTOs.isEmpty()) {
+            return new ResponseEntity<>(
+                    productDTOs,
+                    HttpStatus.NOT_FOUND
+            );
+        }
 
+        List<GenericProductDTO> genericProductDtos = new ArrayList<>();
+
+        for (GenericProductDTO gpd: productDTOs) {
+            genericProductDtos.add(gpd);
+        };
+
+//        genericProductDtos.remove(genericProductDtos.get(0));
+
+        return new ResponseEntity<>(genericProductDtos, HttpStatus.OK);
+
+//        productDtos.get(0).setId(1001L);
+//
+//        return new ResponseEntity<>(productDtos, HttpStatus.OK);
     }
     @GetMapping("{id}")
     public GenericProductDTO getProductById(@PathVariable("id") Long id) throws NotFoundException{
