@@ -4,6 +4,8 @@ package com.example.FakeStore.services;
 import com.example.FakeStore.dtos.GenericProductDTO;
 import com.example.FakeStore.dtos.fakeStoreDTO;
 import com.example.FakeStore.exceptions.NotFoundException;
+import com.example.FakeStore.security.JWTObject;
+
 import com.example.FakeStore.models.Product;
 import com.example.FakeStore.thirdpartyclients.ProductService.FakeStore.FakeStoreProductDTO;
 import com.example.FakeStore.thirdpartyclients.ProductService.FakeStore.FakeStoreProductServiceClient;
@@ -44,7 +46,7 @@ public class FakeStoreProductService implements ProductService {
     }
 
     @Override
-    public GenericProductDTO getProductById(Long id) throws NotFoundException {
+    public GenericProductDTO getProductById(Long id, Long userIdTryingAccess) throws NotFoundException {
 //        return new Product();
 //        return null;
 //        RestTemplate restTemplate = restTemplateBuilder.build();

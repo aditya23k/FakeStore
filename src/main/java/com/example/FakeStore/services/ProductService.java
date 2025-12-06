@@ -5,9 +5,10 @@ import java.util.*;
 import com.example.FakeStore.dtos.GenericProductDTO;
 import com.example.FakeStore.exceptions.NotFoundException;
 import com.example.FakeStore.models.Product;
+import com.example.FakeStore.security.*;
 
 public interface ProductService {
-    GenericProductDTO getProductById(Long id) throws NotFoundException;
+    GenericProductDTO getProductById(Long id, Long userIdTryingToAccess) throws NotFoundException;
 
     GenericProductDTO createProduct(GenericProductDTO productDTO);
 
